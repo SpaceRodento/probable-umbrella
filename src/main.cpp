@@ -36,12 +36,18 @@ void setup() {
     tft.setTextColor(TFT_CYAN);
     tft.setTextSize(1);
 
-#ifdef TDISPLAY_S3
+#ifdef TDISPLAY
+    tft.println("Laite: T-Display");
+    tft.println("Naytto: 1.14\" ST7789V");
+    tft.println("Siru: ESP32");
+#elif defined(TDISPLAY_S3)
     tft.println("Laite: T-Display-S3");
     tft.println("Naytto: 1.9\" ST7789");
+    tft.println("Siru: ESP32-S3");
 #elif defined(TPICOC3)
     tft.println("Laite: T-PicoC3");
     tft.println("Naytto: 1.14\" ST7735");
+    tft.println("Siru: ESP32-C3");
 #else
     tft.println("Laite: ESP32");
 #endif

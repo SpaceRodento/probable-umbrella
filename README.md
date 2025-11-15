@@ -4,6 +4,12 @@ Perusprojekti LILYGO T-Display -laitteille. Näyttää tekstiä LCD-ruudulla.
 
 ## Tuetut laitteet
 
+### T-Display (alkuperäinen) ⭐
+- **Siru**: ESP32 (alkuperäinen)
+- **Näyttö**: 1.14" ST7789V (135x240)
+- **USB-sarja**: CH9102F
+- **Ympäristö**: `t-display`
+
 ### T-Display-S3
 - **Siru**: ESP32-S3
 - **Näyttö**: 1.9" ST7789V (170x320)
@@ -26,36 +32,34 @@ pip install platformio
 
 ### 2. Valitse laitteesi
 
-Tarkista laitteesi malli (S3 vai C3) ja käytä vastaavaa komentoa.
+Tarkista laitteesi malli ja käytä vastaavaa komentoa.
 
-### 3. Käännä projekti
+### 3. Käännä ja lataa laitteelle
 
-**T-Display-S3:lle:**
+**T-Display (alkuperäinen ESP32):**
 ```bash
-pio run -e t-display-s3
+pio run -e t-display --target upload
 ```
 
-**T-PicoC3:lle:**
-```bash
-pio run -e t-picoc3
-```
-
-### 4. Lataa laitteelle
-
-**T-Display-S3:lle:**
+**T-Display-S3:**
 ```bash
 pio run -e t-display-s3 --target upload
 ```
 
-**T-PicoC3:lle:**
+**T-PicoC3:**
 ```bash
 pio run -e t-picoc3 --target upload
 ```
 
-### 5. Avaa Serial Monitor
+### 4. Avaa Serial Monitor (valinnainen)
 
 ```bash
 pio device monitor
+```
+
+Tai yhdistä lataus ja monitorointi:
+```bash
+pio run -e t-display --target upload --target monitor
 ```
 
 ## Mitä ohjelma tekee?
@@ -67,6 +71,14 @@ Ohjelma:
 4. Päivittää laskurin joka sekunti
 
 ## Näytön pinnit
+
+### T-Display (alkuperäinen)
+- MOSI (SDA): GPIO 19
+- SCLK (SCL): GPIO 18
+- CS: GPIO 5
+- DC: GPIO 16
+- RST: GPIO 23
+- BL (Backlight): GPIO 4
 
 ### T-Display-S3
 - MOSI (SDA): GPIO 35
@@ -88,7 +100,7 @@ Ohjelma:
 
 ### Näyttö ei näytä mitään
 
-1. **Tarkista laitevalinta**: Varmista, että käytät oikeaa ympäristöä (`t-display-s3` tai `t-picoc3`)
+1. **Tarkista laitevalinta**: Varmista, että käytät oikeaa ympäristöä (`t-display`, `t-display-s3` tai `t-picoc3`)
 2. **Tarkista USB-liitäntä**: Laite pitää olla kytketty tietokoneeseen
 3. **Serial Monitor**: Tarkista Serial Monitorista, näkyykö käynnistysviestit
 4. **Pinnikytkennät**: Pinnit on määritetty automaattisesti, mutta tarkista että ne vastaavat laitettasi
@@ -102,11 +114,16 @@ pio pkg install
 
 ### En tiedä kumpi laite minulla on
 
-Tarkista:
-- **Näytön koko**: Mittaa vinoittain (1.14" vs 1.9")
-- **Laitekoko**: T-Display-S3 on suurempi ja ohuempi, T-PicoC3 on pienempi ja leveämpi
-- **Sirun merkintä**: Tarkista laitteen pohjasta "ESP32-S3" tai "ESP32-C3"
-- **Kokeile molempia**: Lataa ensin `t-display-s3`, jos ei toimi, kokeile `t-picoc3`
+Tunnistusohje:
+- **1.14" näyttö**:
+  - Alkuperäinen T-Display (ESP32) - yleisin malli, CH9102F USB-sarja
+  - T-PicoC3 (ESP32-C3) - Raspberry Pi Pico -muotoinen
+- **1.9" näyttö**: T-Display-S3 (ESP32-S3) - suurempi ja ohuempi
+
+**Jos epävarma**, kokeile järjestyksessä:
+1. `pio run -e t-display --target upload` (yleisin)
+2. Jos ei toimi: `pio run -e t-display-s3 --target upload`
+3. Jos ei toimi: `pio run -e t-picoc3 --target upload`
 
 ## Oma koodi
 
