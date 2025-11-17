@@ -33,9 +33,12 @@
     #define TFT_DC   16
     #define TFT_RST  23
     #define TFT_BL   4
-    #define TFT_RGB_ORDER TFT_RGB
-    #define TFT_INVERSION_ON  // Käännä värit oikeinpäin
-    #define DEVICE_NAME "T-Display"
+    #define TFT_RGB_ORDER TFT_BGR  // IPS näytöt käyttävät BGR!
+    #define TFT_INVERSION_OFF      // IPS ei tarvitse inversiota
+    #define CGRAM_OFFSET           // IPS offset
+    #define COLSTART 52            // IPS X offset
+    #define ROWSTART 40            // IPS Y offset
+    #define DEVICE_NAME "T-Display IPS"
     #define DISPLAY_NAME "1.14\" ST7789V"
     #define CHIP_NAME "ESP32"
     // Painikkeet

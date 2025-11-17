@@ -18,10 +18,12 @@
 #define TFT_RST  23  // RST
 #define TFT_BL   4   // Backlight
 
-// ST7789 specific settings
-#define TFT_RGB_ORDER TFT_RGB  // Colour order Red-Green-Blue
-#define TFT_INVERSION_ON     // Käännä värit oikeinpäin
-// #define TFT_INVERSION_OFF    // Uncomment if colors look right
+// ST7789 IPS specific settings
+#define TFT_RGB_ORDER TFT_BGR  // IPS näytöt käyttävät BGR!
+#define TFT_INVERSION_OFF      // IPS ei tarvitse inversiota
+#define CGRAM_OFFSET           // IPS muisti-offset
+#define COLSTART 52            // IPS X-offset
+#define ROWSTART 40            // IPS Y-offset
 
 // Värit (RGB565)
 #define TFT_BLACK   0x0000
