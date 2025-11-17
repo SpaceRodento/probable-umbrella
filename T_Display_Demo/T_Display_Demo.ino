@@ -34,6 +34,7 @@
     #define TFT_RST  23
     #define TFT_BL   4
     #define TFT_RGB_ORDER TFT_RGB
+    #define TFT_INVERSION_ON  // Käännä värit oikeinpäin
     #define DEVICE_NAME "T-Display"
     #define DISPLAY_NAME "1.14\" ST7789V"
     #define CHIP_NAME "ESP32"
@@ -99,8 +100,8 @@
 #define LOAD_FONT8
 #define LOAD_GFXFF
 #define SMOOTH_FONT
-#define SPI_FREQUENCY  40000000
-#define SPI_READ_FREQUENCY  16000000
+#define SPI_FREQUENCY  10000000  // Alennettu 40MHz → 10MHz
+#define SPI_READ_FREQUENCY  10000000
 
 // Värit
 #define TFT_BLACK   0x0000

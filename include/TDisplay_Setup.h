@@ -20,7 +20,7 @@
 
 // ST7789 specific settings
 #define TFT_RGB_ORDER TFT_RGB  // Colour order Red-Green-Blue
-// #define TFT_INVERSION_ON     // Uncomment if colors are inverted
+#define TFT_INVERSION_ON     // Käännä värit oikeinpäin
 // #define TFT_INVERSION_OFF    // Uncomment if colors look right
 
 // Värit (RGB565)
@@ -55,6 +55,6 @@
 
 #define SMOOTH_FONT
 
-// SPI-nopeus
-#define SPI_FREQUENCY  40000000
-#define SPI_READ_FREQUENCY  16000000
+// SPI-nopeus (alennettu stabiilisuuden vuoksi)
+#define SPI_FREQUENCY  10000000
+#define SPI_READ_FREQUENCY  10000000
