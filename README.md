@@ -1,6 +1,12 @@
 # ESP32 Display Setup
 
-Perusprojekti LILYGO T-Display -laitteille. Näyttää tekstiä LCD-ruudulla.
+Advanced demo LILYGO T-Display -laitteille.
+
+## ✨ Ominaisuudet
+
+- 📡 **WiFi Scan** - Skannaa lähellä olevat WiFi-verkot (vasen nappi)
+- 🔋 **Voltage Monitor** - Näytä akun jännite ja lataustaso (oikea nappi)
+- 💤 **Deep Sleep** - Virransäästötila (oikea nappi pitkä painallus)
 
 ## 🚀 Pika-aloitus
 
@@ -77,11 +83,20 @@ pio run -e t-display --target upload --target monitor
 
 ## Mitä ohjelma tekee?
 
-Ohjelma:
-1. Alustaa LCD-näytön
-2. Näyttää tervehdystekstin
-3. Näyttää laitteen tiedot
-4. Päivittää laskurin joka sekunti
+### Aloitusnäyttö
+- Näyttää laitteen nimen ja ohjeet
+
+### Vasen nappi - WiFi Scan
+- Skannaa WiFi-verkot ja näyttää SSID:t + signaalin vahvuuden
+- Värikoodaus: Vihreä (vahva), Keltainen (kohtalainen), Oranssi (heikko)
+
+### Oikea nappi - Voltage Monitor
+- Näyttää akun jännitteen ja arvion lataustasosta
+- Graafinen palkki ja värikoodaus
+
+### Oikea nappi (pitkä, 2s) - Deep Sleep
+- Sammuttaa näytön ja siirtyy virransäästötilaan
+- Herää vasemmalla napilla
 
 ## Näytön pinnit
 

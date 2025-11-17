@@ -1,6 +1,12 @@
 # T-Display Demo - Arduino IDE
 
-Yksinkertainen esimerkki LILYGO T-Display -laitteille Arduino IDE:ssä.
+Advanced demo LILYGO T-Display -laitteille Arduino IDE:ssä.
+
+## ✨ Ominaisuudet
+
+- **Vasen nappi**: WiFi-verkkojen skannaus
+- **Oikea nappi**: Akun jännitteen näyttö
+- **Oikea nappi (pitkä painallus 2s)**: Deep sleep -tila
 
 ## Asennus
 
@@ -57,9 +63,32 @@ Lataa ja asenna Arduino IDE: https://www.arduino.cc/en/software
 
 ## Mitä ohjelma tekee?
 
-- Näyttää "Hei!" ja "ESP32 toimii!" tekstit
-- Näyttää laitteen tiedot
-- Päivittää laskurin joka sekunti
+### Aloitusnäyttö
+- Näyttää laitteen nimen
+- Näyttää ohjeet nappien käytöstä
+
+### Vasen nappi - WiFi Scan
+- Skannaa lähellä olevat WiFi-verkot
+- Näyttää verkon nimen (SSID) ja signaalin vahvuuden
+- Värikoodaus signaalin mukaan:
+  - Vihreä: Vahva signaali (> -50 dB)
+  - Keltainen: Kohtalainen signaali (-50 to -70 dB)
+  - Oranssi: Heikko signaali (< -70 dB)
+
+### Oikea nappi - Voltage Monitor
+- Näyttää akun jännitteen voltteina
+- Näyttää arvion akun lataustasosta prosentteina
+- Värikoodaus jännitteen mukaan:
+  - Vihreä: Täysi lataus (> 4.0V)
+  - Keltainen: Kohtalainen (3.6V - 4.0V)
+  - Punainen: Matala (< 3.6V)
+- Graafinen palkki lataustason näyttämiseen
+
+### Oikea nappi (pitkä painallus) - Deep Sleep
+- Pidä oikeaa nappia pohjassa 2 sekuntia
+- Laite menee deep sleep -tilaan virran säästämiseksi
+- Herää painamalla vasenta nappia
+- Näyttö sammuu sleep-tilassa
 
 ## Vianmääritys
 
@@ -77,6 +106,24 @@ Lataa ja asenna Arduino IDE: https://www.arduino.cc/en/software
 3. Avaa Serial Monitor: **Tools → Serial Monitor** (115200 baud)
 4. Paina laitteen **RESET**-nappia
 
+### Napit eivät toimi
+
+1. Tarkista että painat oikeaa nappia
+2. Katso Serial Monitor -viestejä napinpainalluksista
+3. Jos deep sleep aktivoituu vahingossa, paina vasenta nappia herättääksesi laitteen
+
+### WiFi scan ei näytä verkkoja
+
+1. Varmista että olet WiFi-verkkojen läheisyydessä
+2. WiFi scan voi kestää muutaman sekunnin
+3. Katso Serial Monitor -viestejä lisätiedoista
+
+### Jännitemittaus näyttää väärin
+
+1. Jännitemittaus on karkea arvio
+2. Kalibrointivakio (0.3V) voi vaatia säätöä eri laitteilla
+3. Muokkaa koodissa `battery_voltage += 0.3;` kohtaa tarvittaessa
+
 ### Käännösvirhe
 
 Jos saat virheen `#error "Valitse laite koodin alussa!"`:
@@ -93,5 +140,22 @@ Avaa Serial Monitor nähdäksesi debug-viestit:
 
 Tuetut laitteet:
 - **T-Display**: Alkuperäinen ESP32, 1.14" ST7789V näyttö
+  - Vasen nappi: GPIO 0
+  - Oikea nappi: GPIO 35
+  - ADC: GPIO 34
 - **T-Display-S3**: ESP32-S3, 1.9" ST7789V näyttö
+  - Vasen nappi: GPIO 0
+  - Oikea nappi: GPIO 14
+  - ADC: GPIO 4
 - **T-PicoC3**: ESP32-C3, 1.14" ST7735S näyttö
+  - Vasen nappi: GPIO 0
+  - Oikea nappi: GPIO 21
+  - ADC: GPIO 3
+
+## Teknisiä yksityiskohtia
+
+- **Debounce**: 50ms napinpainalluksille
+- **Long press**: 2000ms (2 sekuntia)
+- **WiFi**: Station mode, passive scan
+- **ADC**: 12-bit resoluutio, 2:1 jännitteenjakaja
+- **Deep sleep**: EXT0 wake-up vasemmalla napilla
