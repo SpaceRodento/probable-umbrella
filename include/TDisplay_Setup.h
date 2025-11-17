@@ -18,12 +18,9 @@
 #define TFT_RST  23  // RST
 #define TFT_BL   4   // Backlight
 
-// ST7789 IPS specific settings
-#define TFT_RGB_ORDER TFT_BGR  // IPS näytöt käyttävät BGR!
-#define TFT_INVERSION_OFF      // IPS ei tarvitse inversiota
-#define CGRAM_OFFSET           // IPS muisti-offset
-#define COLSTART 52            // IPS X-offset
-#define ROWSTART 40            // IPS Y-offset
+// ST7789 specific settings (LILYGO official)
+#define TFT_SDA_READ     // Bidirectional SDA pin
+#define CGRAM_OFFSET     // Library adds required offsets
 
 // Värit (RGB565)
 #define TFT_BLACK   0x0000
@@ -57,6 +54,6 @@
 
 #define SMOOTH_FONT
 
-// SPI-nopeus (alennettu stabiilisuuden vuoksi)
-#define SPI_FREQUENCY  10000000
-#define SPI_READ_FREQUENCY  10000000
+// SPI-nopeus (LILYGO official settings)
+#define SPI_FREQUENCY  40000000     // 40MHz write
+#define SPI_READ_FREQUENCY  6000000  // 6MHz read (MAX for ST7789V!)

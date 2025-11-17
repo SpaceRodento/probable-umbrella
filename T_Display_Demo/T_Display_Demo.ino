@@ -33,10 +33,9 @@
     #define TFT_DC   16
     #define TFT_RST  23
     #define TFT_BL   4
-    #define TFT_RGB_ORDER TFT_BGR  // IPS näytöt käyttävät BGR!
-    #define TFT_INVERSION_OFF      // IPS ei tarvitse inversiota
-    // Ei offsetteja - kokeillaan ilman
-    #define DEVICE_NAME "T-Display IPS"
+    #define TFT_SDA_READ         // Bidirectional SDA!
+    #define CGRAM_OFFSET         // Library adds offsets
+    #define DEVICE_NAME "T-Display"
     #define DISPLAY_NAME "1.14\" ST7789V"
     #define CHIP_NAME "ESP32"
     // Painikkeet
@@ -101,8 +100,8 @@
 #define LOAD_FONT8
 #define LOAD_GFXFF
 #define SMOOTH_FONT
-#define SPI_FREQUENCY  10000000  // Alennettu 40MHz → 10MHz
-#define SPI_READ_FREQUENCY  10000000
+#define SPI_FREQUENCY  40000000     // 40MHz write
+#define SPI_READ_FREQUENCY  6000000  // 6MHz read (MAX for ST7789V!)
 
 // Värit
 #define TFT_BLACK   0x0000
