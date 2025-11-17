@@ -35,9 +35,7 @@
     #define TFT_BL   4
     #define TFT_RGB_ORDER TFT_BGR  // IPS näytöt käyttävät BGR!
     #define TFT_INVERSION_OFF      // IPS ei tarvitse inversiota
-    #define CGRAM_OFFSET           // IPS offset
-    #define COLSTART 52            // IPS X offset
-    #define ROWSTART 40            // IPS Y offset
+    // Ei offsetteja - kokeillaan ilman
     #define DEVICE_NAME "T-Display IPS"
     #define DISPLAY_NAME "1.14\" ST7789V"
     #define CHIP_NAME "ESP32"
@@ -182,10 +180,22 @@ void setup() {
 
     Serial.println("Täytetään näyttö mustalla...");
     tft.fillScreen(TFT_BLACK);
+    delay(500);
 
-    delay(100);  // Pieni viive varmistukseksi
+    Serial.println("Testataan piirtämistä - punainen neliö...");
+    tft.fillRect(10, 10, 100, 100, TFT_RED);
+    delay(500);
+
+    Serial.println("Vihreä neliö...");
+    tft.fillRect(10, 10, 100, 100, TFT_GREEN);
+    delay(500);
+
+    Serial.println("Sininen neliö...");
+    tft.fillRect(10, 10, 100, 100, TFT_BLUE);
+    delay(500);
 
     // Näytä aloitusnäyttö
+    Serial.println("Näytetään aloitusnäyttö...");
     showWelcome();
 }
 
