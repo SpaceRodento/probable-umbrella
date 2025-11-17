@@ -5,22 +5,25 @@
 #include "User_Setup_Select.h"
 #include <TFT_eSPI.h>
 
-// Määritä painikkeet ja ADC-pinnit eri laitteille
+// Määritä painikkeet, backlight ja ADC-pinnit eri laitteille
 #ifdef TDISPLAY
     #define BUTTON_LEFT  0
     #define BUTTON_RIGHT 35
     #define ADC_PIN 34
     #define ADC_EN  14
+    #define BACKLIGHT_PIN 4
 #elif defined(TDISPLAY_S3)
     #define BUTTON_LEFT  0
     #define BUTTON_RIGHT 14
     #define ADC_PIN 4
     #define ADC_EN  15
+    #define BACKLIGHT_PIN 33
 #elif defined(TPICOC3)
     #define BUTTON_LEFT  0
     #define BUTTON_RIGHT 21
     #define ADC_PIN 3
     #define ADC_EN  10
+    #define BACKLIGHT_PIN 2
 #endif
 
 // Luo näyttöolio
@@ -60,10 +63,20 @@ void setup() {
     digitalWrite(ADC_EN, HIGH);  // Ota ADC käyttöön
     #endif
 
+    // Alusta näytön backlight (TÄRKEÄ!)
+    pinMode(BACKLIGHT_PIN, OUTPUT);
+    digitalWrite(BACKLIGHT_PIN, HIGH);  // Kytke backlight päälle
+
+    Serial.println("Alustetaan näyttö...");
+
     // Alusta näyttö
     tft.init();
     tft.setRotation(1); // Vaakatasossa
+
+    Serial.println("Täytetään näyttö mustalla...");
     tft.fillScreen(TFT_BLACK);
+
+    delay(100);  // Pieni viive varmistukseksi
 
     // Näytä aloitusnäyttö
     showWelcome();
@@ -312,13 +325,7 @@ void goToSleep() {
     delay(2000);
 
     // Sammuta näyttö
-    #ifdef TDISPLAY
-        digitalWrite(4, LOW);  // TFT_BL
-    #elif defined(TDISPLAY_S3)
-        digitalWrite(33, LOW);
-    #elif defined(TPICOC3)
-        digitalWrite(2, LOW);
-    #endif
+    digitalWrite(BACKLIGHT_PIN, LOW);
 
     // Aseta herätyspinni (vasen nappi)
     esp_sleep_enable_ext0_wakeup((gpio_num_t)BUTTON_LEFT, LOW);

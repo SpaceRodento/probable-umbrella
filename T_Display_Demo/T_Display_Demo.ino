@@ -166,10 +166,20 @@ void setup() {
     digitalWrite(ADC_EN, HIGH);  // Ota ADC käyttöön
     #endif
 
+    // Alusta näytön backlight (TÄRKEÄ!)
+    pinMode(TFT_BL, OUTPUT);
+    digitalWrite(TFT_BL, HIGH);  // Kytke backlight päälle
+
+    Serial.println("Alustetaan näyttö...");
+
     // Alusta näyttö
     tft.init();
     tft.setRotation(1); // Vaakatasossa
+
+    Serial.println("Täytetään näyttö mustalla...");
     tft.fillScreen(TFT_BLACK);
+
+    delay(100);  // Pieni viive varmistukseksi
 
     // Näytä aloitusnäyttö
     showWelcome();
