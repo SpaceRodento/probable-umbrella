@@ -2,6 +2,17 @@
 
 Perusprojekti LILYGO T-Display -laitteille. Näyttää tekstiä LCD-ruudulla.
 
+## 🚀 Pika-aloitus
+
+### Arduino IDE käyttäjät
+📁 **Avaa: [`T_Display_Demo/T_Display_Demo.ino`](T_Display_Demo/)**
+📖 [Arduino IDE ohjeet](T_Display_Demo/README.md)
+
+### PlatformIO käyttäjät
+📖 Jatka lukemalla alla olevat ohjeet
+
+---
+
 ## Tuetut laitteet
 
 ### T-Display (alkuperäinen) ⭐
@@ -20,7 +31,9 @@ Perusprojekti LILYGO T-Display -laitteille. Näyttää tekstiä LCD-ruudulla.
 - **Näyttö**: 1.14" ST7735S (135x240)
 - **Ympäristö**: `t-picoc3`
 
-## Käyttöönotto
+## Käyttöönotto (PlatformIO)
+
+**Käytätkö Arduino IDE:tä?** → [Klikkaa tästä](T_Display_Demo/README.md)
 
 ### 1. Asenna PlatformIO
 
@@ -127,7 +140,8 @@ Tunnistusohje:
 
 ## Oma koodi
 
-Muokkaa `src/main.cpp` -tiedostoa omia tarpeita varten.
+**PlatformIO**: Muokkaa `src/main.cpp` -tiedostoa omia tarpeita varten.
+**Arduino IDE**: Muokkaa `T_Display_Demo/T_Display_Demo.ino` -tiedostoa.
 
 ### Esimerkkejä
 
@@ -149,10 +163,29 @@ tft.fillRect(x, y, leveys, korkeus, TFT_BLUE);
 tft.fillCircle(x, y, sade, TFT_RED);
 ```
 
+## Projektin rakenne
+
+```
+├── T_Display_Demo/           # Arduino IDE projekti
+│   ├── T_Display_Demo.ino   # Pääohjelma (avaa tämä Arduino IDE:ssä)
+│   └── README.md            # Arduino IDE ohjeet
+│
+├── src/                      # PlatformIO projekti
+│   └── main.cpp             # Pääohjelma (PlatformIO)
+│
+├── include/                  # Näyttökonfiguraatiot
+│   ├── TDisplay_Setup.h
+│   ├── TDisplay_S3_Setup.h
+│   └── TPicoC3_Setup.h
+│
+└── platformio.ini           # PlatformIO konfiguraatio
+```
+
 ## Lisätietoja
 
 - [TFT_eSPI dokumentaatio](https://github.com/Bodmer/TFT_eSPI)
 - [PlatformIO dokumentaatio](https://docs.platformio.org/)
+- [Arduino IDE dokumentaatio](https://www.arduino.cc/)
 - [LILYGO T-Display GitHub](https://github.com/Xinyuan-LilyGO)
 
 ## Lisenssi
